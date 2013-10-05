@@ -1,0 +1,15 @@
+USER=<%= node['groonga']['httpd']['user'] %>
+GROUP=<%= node['groonga']['httpd']['group'] %>
+ADDRESS=<%= node['groonga']['httpd']['address'] %>
+PORT=<%= node['groonga']['httpd']['port'] %>
+DATABASE=<%= node['groonga']['httpd']['database'] %>
+LOG_PATH=<%= node['groonga']['httpd']['log_path'] %>
+QUERY_LOG_PATH=<%= node['groonga']['httpd']['query_log_path'] %>
+PROTOCOL=<%= node['groonga']['httpd']['protocol'] %>
+GRN_QUERY_EXPANDER_TSV_SYNONYMS_FILE=<%= node['groonga']['httpd']['grn_query_expander_tsv_synonyms_file'] %>
+STATUS_TIMEOUT=<%= node['groonga']['httpd']['status_timeout'] %>
+
+<% if node.platform_family?("debian") %>
+# Comment out this to disable groonga-httpd daemon.
+ENABLE=<%= node['groonga']['httpd']['enable'] %>
+<% end %>

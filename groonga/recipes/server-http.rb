@@ -19,3 +19,25 @@ include_recipe "groonga::repository"
 
 package "groonga-server-http" do
 end
+
+service "groonga-server-http" do
+  supports :restart => true, :reload => true, :status => true
+  action [:enable, :start]
+end
+
+case node['platform_family']
+when "debian"
+  template "/etc/default/groonga-server-http" do
+    owner "root"
+    group "root"
+    mode "0644"
+    notifies :restart, "service[groonga-server-http]"
+  end
+when "rhel", "fedora"
+  template "/etc/sysconfig/groonga-server-http" do
+    owner "root"
+    group "root"
+    mode "0644"
+    notifies :restart, "service[groonga-server-http]"
+  end
+end

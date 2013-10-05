@@ -19,3 +19,25 @@ include_recipe "groonga::repository"
 
 package "groonga-server-gqtp" do
 end
+
+service "groonga-server-gqtp" do
+  supports :restart => true, :reload => true, :status => true
+  action [:enable, :start]
+end
+
+case node['platform_family']
+when "debian"
+  template "/etc/default/groonga-server-gqtp" do
+    owner "root"
+    group "root"
+    mode "0644"
+    notifies :restart, "service[groonga-server-gqtp]"
+  end
+when "rhel", "fedora"
+  template "/etc/sysconfig/groonga-server-gqtp" do
+    owner "root"
+    group "root"
+    mode "0644"
+    notifies :restart, "service[groonga-server-gqtp]"
+  end
+end

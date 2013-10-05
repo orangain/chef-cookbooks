@@ -1,0 +1,14 @@
+USER=<%= node['groonga']['server-gqtp']['user'] %>
+GROUP=<%= node['groonga']['server-gqtp']['group'] %>
+ADDRESS=<%= node['groonga']['server-gqtp']['address'] %>
+PORT=<%= node['groonga']['server-gqtp']['port'] %>
+DATABASE=<%= node['groonga']['server-gqtp']['database'] %>
+LOG_PATH=<%= node['groonga']['server-gqtp']['log_path'] %>
+QUERY_LOG_PATH=<%= node['groonga']['server-gqtp']['query_log_path'] %>
+PROTOCOL=<%= node['groonga']['server-gqtp']['protocol'] %>
+GRN_QUERY_EXPANDER_TSV_SYNONYMS_FILE=<%= node['groonga']['server-gqtp']['grn_query_expander_tsv_synonyms_file'] %>
+
+<% if node.platform_family?("debian") %>
+# Comment out this to disable groonga daemon.
+ENABLE=<%= node['groonga']['server-gqtp']['enable'] %>
+<% end %>

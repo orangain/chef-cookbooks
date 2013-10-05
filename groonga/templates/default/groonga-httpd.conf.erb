@@ -1,0 +1,49 @@
+worker_processes <%= node['groonga']['httpd']['worker_processes'] %>;
+
+# Match this to the file owner of groonga database files if groonga-httpd is
+# run as root.
+user <%= node['groonga']['httpd']['user'] %> <%= node['groonga']['httpd']['group'] %>;
+
+events {
+  worker_connections <%= node['groonga']['httpd']['worker_connections'] %>;
+}
+
+http {
+  include mime.types;
+  default_type application/octet-stream;
+  sendfile on;
+  keepalive_timeout <%= node['groonga']['httpd']['keepalive_timeout'] %>;
+
+  # The default groonga database path.
+  groonga_database <%= node['groonga']['httpd']['database'] %>;
+
+  # Create a groonga database automatically if the groonga database doesn't
+  # exist.
+  #
+  # Note that this option is danger when worker_processes is greater than 1.
+  # Because one or more worker processes may create the same groonga database
+  # at the same time. If you can create a groonga database before running
+  # groonga-httpd, you should do it.
+  groonga_database_auto_create <%= node['groonga']['httpd']['groonga_database_auto_create'] %>;
+
+  server {
+    listen <%= node['groonga']['httpd']['port'] %>;
+    server_name localhost;
+
+    location /d/ {
+      groonga on;
+      # You can custom database path.
+      # groonga_database /path/to/groonga/db;
+    }
+
+    location / {
+      root /usr/share/groonga/html/admin;
+      index index.html;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+      root html;
+    }
+  }
+}

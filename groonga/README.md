@@ -33,22 +33,54 @@ Requirements
 Attributes
 ----------
 
-e.g.
-#### groonga::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['groonga']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+#### httpd.rb
+
+* `node['groonga']['httpd']['user']` - User that httpd run as. Default is `groonga`.
+* `node['groonga']['httpd']['group']` - Group for httpd. Default is `groonga`
+* `node['groonga']['httpd']['address']` - Address for monitoring httpd. Default is `127.0.0.1`.
+* `node['groonga']['httpd']['port']` - Port to listen. Default is `10041`.
+* `node['groonga']['httpd']['database']` - Location of the database. Default is `/var/lib/groonga/db/db`.
+* `node['groonga']['httpd']['log_path']` - Location for access logs. Default is `/var/log/groonga/groonga.log` or `/var/log/groonga/httpd/access.log` depending on platform.
+* `node['groonga']['httpd']['query_log_path']` - Location for query logs. Default is `/var/log/groonga/query.log` or `/var/log/groonga/httpd/access.log` depending on platform.
+* `node['groonga']['httpd']['protocol']` - Protocol to use. Default is `http`.
+* `node['groonga']['httpd']['grn_query_expander_tsv_synonyms_file']` - Location of the TSV synonyms file. Default is `/usr/share/groonga/synonyms.tsv`.
+* `node['groonga']['httpd']['status_timeout']` - Timeout seconds used when monitoring httpd status. Default is `3`.
+* `node['groonga']['httpd']['enable']` - Whether to enable the daemon only available on Debian platform family. Default is `yes`.
+* `node['groonga']['httpd']['worker_processes']` - Number of worker processes. Default is `1`.
+* `node['groonga']['httpd']['worker_connections']` - Number of worker connections. Default is `1024`.
+* `node['groonga']['httpd']['keepalive_timeout']` - Keepalive timeout seconds. Default is `65`.
+* `node['groonga']['httpd']['groonga_database_auto_create']` - Whether to create a groonga database automatically if the groonga database doesn't exist. Default is `on`.
+
+#### server-gqtp.rb
+
+* `node['groonga']['server-gqtp']['user']` - User that server-gqtp run as. Default is `groonga`.
+* `node['groonga']['server-gqtp']['group']` - Group for server-gqtp. Default is `groonga`.
+* `node['groonga']['server-gqtp']['address']` - Address to bind. Default is `127.0.0.1`.
+* `node['groonga']['server-gqtp']['port']` - Port to bind. Default is `10043`.
+* `node['groonga']['server-gqtp']['database']` - Location of the database. Default is `/var/lib/groonga/db/db`.
+* `node['groonga']['server-gqtp']['log_path']` - Location for logs. Default is `/var/log/groonga/groonga-gqtp.log`.
+* `node['groonga']['server-gqtp']['query_log_path']` - Location for query logs. Default is `/var/log/groonga/query-gqtp.log`.
+* `node['groonga']['server-gqtp']['protocol']` - Protocol to use. Default is `gqtp`.
+* `node['groonga']['server-gqtp']['grn_query_expander_tsv_synonyms_file']` - Location of the TSV synonyms file. Default is `/usr/share/groonga/synonyms.tsv`. Default is `/usr/share/groonga/synonyms.tsv`.
+* `node['groonga']['server-gqtp']['enable']` - Whether to enable the daemon only available on Debian platform family. Default is `yes`.
+
+#### server-http.rb
+
+* `node['groonga']['server-http']['user']` - User that server-http run as. Default is `groonga`.
+* `node['groonga']['server-http']['group']` - Group for server-http. Default is `groonga`.
+* `node['groonga']['server-http']['address']` - Address to bind. Default is `127.0.0.1`.
+* `node['groonga']['server-http']['port']` - Port to bind. Default is `10041`.
+* `node['groonga']['server-http']['database']` - Location of the database. Default is `/var/lib/groonga/db/db`.
+* `node['groonga']['server-http']['log_path']` - Location for logs. Default is `/var/log/groonga/groonga-http.log`.
+* `node['groonga']['server-http']['query_log_path']` - Location for query logs. Default is `/var/log/groonga/query-http.log`.
+* `node['groonga']['server-http']['protocol']` - Protocol to use. Default is `http`.
+* `node['groonga']['server-http']['grn_query_expander_tsv_synonyms_file']` - Location of the TSV synonyms file. Default is `/usr/share/groonga/synonyms.tsv`.
+* `node['groonga']['server-http']['status_timeout']` - Timeout seconds used when sending command to server-http. Default is `5`.
+* `node['groonga']['server-http']['enable']` - Whether to enable the daemon only available on Debian platform family. Default is `yes`.
+
+#### tokenizer-mecab.rb
+
+* `node['groonga']['mecab']['dictionaries']` - List of dictionary packages to install. Default is `["mecab-naist-jdic"]`
 
 Usage
 -----

@@ -19,3 +19,32 @@ include_recipe "groonga::repository"
 
 package "groonga-httpd" do
 end
+
+service "groonga-httpd" do
+  supports :restart => true, :reload => true, :status => true
+  action [:enable, :start]
+end
+
+case node['platform_family']
+when "debian"
+  template "/etc/default/groonga-httpd" do
+    owner "root"
+    group "root"
+    mode "0644"
+    notifies :reload, "service[groonga-httpd]"
+  end
+when "rhel", "fedora"
+  template "/etc/sysconfig/groonga-httpd" do
+    owner "root"
+    group "root"
+    mode "0644"
+    notifies :reload, "service[groonga-httpd]"
+  end
+end
+
+template "/etc/groonga/httpd/groonga-httpd.conf" do
+  owner "root"
+  group "root"
+  mode "0644"
+  notifies :reload, "service[groonga-httpd]"
+end
