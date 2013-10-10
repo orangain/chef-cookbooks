@@ -24,3 +24,17 @@ node.groonga.mecab.dictionaries.each do |dictionary|
   package dictionary do
   end
 end
+
+unless node.groonga.mecab.dictionary_path.nil?
+  if node.groonga.mecab.dictionary_path == 'auto'
+    bash "update-alternatives with auto" do
+      code "update-alternatives --auto mecab-dictionary"
+      not_if "update-alternatives --query mecab-dictionary | grep '^Status: auto$'"
+    end
+  else
+    bash "update-alternatives with specified dictionary path" do
+      code "update-alternatives --set mecab-dictionary #{node.groonga.mecab.dictionary_path}"
+      not_if "update-alternatives --query mecab-dictionary | grep '^Value: #{node.groonga.mecab.dictionary_path}$'"
+    end
+  end
+end
