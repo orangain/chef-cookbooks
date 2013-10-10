@@ -27,20 +27,14 @@ end
 
 unless node.groonga.mecab.dictionary_path.nil?
   if node.groonga.mecab.dictionary_path == 'auto'
-    execute "update-alternatives with auto" do
+    execute "change-mecab-dictionary" do
       command "update-alternatives --auto mecab-dictionary"
       not_if "update-alternatives --query mecab-dictionary | grep '^Status: auto$'"
-      notifies :restart, 'service[groonga-server-gqtp]'
-      notifies :restart, 'service[groonga-server-http]'
-      notifies :restart, 'service[groonga-httpd]'
     end
   else
-    execute "update-alternatives with specified dictionary path" do
+    execute "change-mecab-dictionary" do
       command "update-alternatives --set mecab-dictionary #{node.groonga.mecab.dictionary_path}"
       not_if "update-alternatives --query mecab-dictionary | grep '^Value: #{node.groonga.mecab.dictionary_path}$'"
-      notifies :restart, 'service[groonga-server-gqtp]'
-      notifies :restart, 'service[groonga-server-http]'
-      notifies :restart, 'service[groonga-httpd]'
     end
   end
 end

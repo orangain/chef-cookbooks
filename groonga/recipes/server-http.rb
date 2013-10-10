@@ -23,6 +23,7 @@ end
 service "groonga-server-http" do
   supports :restart => true, :reload => true, :status => true
   action [:enable, :start]
+  subscribes :restart, "execute[change-mecab-dictionary]"
 end
 
 case node['platform_family']
