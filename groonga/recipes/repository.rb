@@ -18,9 +18,6 @@
 if platform_family?("debian")
   include_recipe "apt"
 
-  package "lsb-release" do
-  end
-
   apt_repository "groonga" do
     extend Chef::Mixin::ShellOut
 
@@ -29,7 +26,7 @@ if platform_family?("debian")
     if /(?:[an]=)(?:unstable|sid),/ =~ apt_policy
       code_name = "unstable"
     else
-      code_name = shell_out!("lsb_release", "--short", "--codename").stdout.strip
+      code_name = node.lsb.codename
     end
 
     case platform
